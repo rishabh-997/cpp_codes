@@ -1,0 +1,14 @@
+// custom comparator
+	bool myComparison(const pair<int, int> &a, const pair<int, int> &b) {
+	    if (a.first != b.first)
+		return a.first > b.first;
+	    return a.second < b.second;
+	}
+
+// Implementation
+        vector<pair<ll, ll> > arr(n);
+        for (int i = 0; i < n; i++) {
+            cin >> w >> h;
+            arr[i] = make_pair(w, h);
+        }
+        sort(arr.begin(), arr.end(), myComparison);

@@ -1,0 +1,37 @@
+// sort using custom
+/**
+*	ans will be
+*  	{150, 5}, {100,2}, {100,1}, {50, 1}
+*
+/
+
+
+struct job {
+    int a, b;
+};
+
+bool compare(job x, job y) {
+    if(x.a==y.a)
+        return x.b>y.b;
+    return x.a>y.a;
+}
+
+int32_t main() {
+    fastRead()
+    int tests = 1;
+    //cin >> tests >> ws;
+    for (int t = 1; t <= tests; ++t) {
+        job j1 = {100,1};
+        job j2 = {150,5};
+        job j3 = {50,1};
+        job j4 = {100,2};
+        job arr[4];
+        arr[0] = j1;
+        arr[1] = j2;
+        arr[2] = j3;
+        arr[3] = j4;
+        sort(arr, arr + 4, compare);
+        int a = 0;
+    }
+    return 0;
+}

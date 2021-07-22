@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+typedef long long ll;
+
+ll m = 1e7 + 5;
+
+vector<ll> sieve(ll n = m) {
+    vector<bool> arr(n, true);
+    for (ll i = 2; i * i <= n; i++) {
+        if (arr[i]) {
+            for (ll j = i * i; j <= n; j = j + i)
+                arr[j] = false;
+        }
+    }
+    vector<ll> p;
+    for (ll i = 2; i <= n; i++)
+        if (arr[i])
+            p.push_back(i);
+    return p;
+}
+
+int main() {
+    	vector<ll> primes = sieve();
+        ll l, r;
+        cin >> l >> r;
+        vector<ll> arr(r - l + 1);
+        vector<ll> value(r - l + 1);
+
+        for (ll i = l; i <= r; i++) {
+            arr[i - l] = i;
+            value[i - l] = i;
+        }
+
+        for (auto x: primes) {
+            ll a = (l / x) * x;
+            if (a < l)
+                a = a + x;
+            for (ll i = a; i <= r; i = i + x) {
+                arr[i - l] -= arr[i - l] / x;
+                while (value[i - l] % x == 0)
+                    value[i - l] /= x;
+            }
+        }
+
+        for (ll i = l; i <= r; i++) {
+            if (value[i - l] > 1)
+                arr[i - l] -= arr[i - l] / value[i - l];
+        }
+        for (ll x : arr)
+            cout << x << " ";
+
+}
+

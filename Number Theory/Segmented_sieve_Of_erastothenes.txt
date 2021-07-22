@@ -1,0 +1,38 @@
+// returns  vector of primes in [l, r]
+
+vector<ll> sieve(ll n) {
+    vector<int> v(n, 0);
+    for (int i = 2; i <= n; i++) {
+        if (v[i - 1] == 0) {
+            for (int j = i * i; j <= n; j += i) {
+                v[j - 1] = 1;
+            }
+        }
+    }
+    // 0 = prime
+    vector<ll> primes;
+    for (int i = 2; i <= n; i++) {
+        if (v[i - 1] == 0)
+            primes.push_back(i);
+    }
+    return primes;
+}
+
+vector<ll> segmentedSieve(ll l, ll r) {
+    vector<ll> ans = sieve((int) sqrt(r) + 1);
+    vector<ll> segmented(r - l + 1, 0);
+    vector<ll> primes_in_range;
+    for (ll prime : ans) {
+        ll x = (l / prime) * prime;
+        if (x < l)
+            x = x + prime;
+        for (ll k = x; k <= r; k = k + prime) {
+            segmented[k - l] = 1;
+        }
+    }
+    for (ll i = 0; i < segmented.size(); i++) {
+        if (segmented[i] == 0)
+            primes_in_range.push_back(i + l);
+    }
+    return primes_in_range;
+}

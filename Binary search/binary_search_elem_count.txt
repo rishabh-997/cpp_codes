@@ -1,0 +1,25 @@
+int findCount(const vector<int> &arr, int x) {
+    int low = -1;
+    int high = arr.size();
+    int x1, x2;
+    while (high > low + 1) {
+        int mid = (high + low) / 2;
+        if (arr[mid] < x)
+            low = mid;
+        else
+            high = mid;
+    }
+    x1 = high;
+
+    low = -1, high = arr.size();
+    while (high > low + 1) {
+        int mid = (high + low) / 2;
+        if (arr[mid] <= x)
+            low = mid;
+        else
+            high = mid;
+    }
+    x2 = high;
+    return (x2 - x1);
+}
+

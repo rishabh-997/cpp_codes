@@ -1,0 +1,18 @@
+// minimum or the index of smallest in rotated array
+
+int findMin(const vector<int> &arr) {
+    int low = -1;
+    int high = arr.size();
+    if (arr[0] < arr[arr.size() - 1])
+        return arr[0];
+    while (high > low + 1) {
+        int mid = (high + low) / 2;
+        if (arr[mid] < arr[mid - 1] && arr[mid] < arr[mid + 1])
+            return arr[mid];
+        if (arr[mid] > arr[0])
+            low = mid;
+        else
+            high = mid;
+    }
+    return arr[high];
+}
