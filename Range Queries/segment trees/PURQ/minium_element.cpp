@@ -55,3 +55,5 @@ int query_segment_tree(int x, int y, int id = 1, int lx = 0, int rx = n) {
     return min(query_segment_tree(x, y, 2 * id, lx, mid),
                query_segment_tree(x, y, 2 * id + 1, mid, rx));
 }
+
+

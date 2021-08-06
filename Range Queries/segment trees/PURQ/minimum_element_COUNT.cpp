@@ -53,3 +53,4 @@ pi query(int x, int y, int id = 1, int left = 0, int right = n) {
                query(x, y, 2 * id + 1, mid, right));
 }
 
+

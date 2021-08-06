@@ -1,35 +1,81 @@
 // DJIKSTRA ALGORITHM
 // 1. Directed graph ke liye
 
-#define pii pair<ll, ll>
+#include <bits/stdc++.h>
+ 
+using namespace std;
 typedef long long ll;
-
-	ll n, m, a, b, c;
+#define fastRead() ios_base::sync_with_stdio(false),cin.tie(NULL);
+#define int long long
+#define pi pair<int, int>
+#define vi vector<int>
+#define vb vector<bool>
+#define vvi vector<vector<int> >
+#define vpi vector<pi>
+#define vvpi vector<vector<pi> >
+int MOD = 1000000007;
+ 
+int ADD(int a, int b) {
+    return (a % MOD + b % MOD) % MOD;
+}
+ 
+int MUL(int a, int b) {
+    return (a % MOD * b % MOD) % MOD;
+}
+ 
+int n, m;
+vvpi adj;
+vb vis;
+vi par, depth, dist;
+ 
+void init() {
+    adj.resize(n + 1);
+    vis.resize(n + 1);
+    vis.assign(vis.size(), false);
+    dist.resize(n + 1);
+    dist.assign(dist.size(), 1e14);
+}
+ 
+int32_t main() {
+    fastRead()
+    int tests = 1;
+    //cin >> tests >> ws;
+    for (int t = 1; t <= tests; t++) {
+        int a, b, c;
         cin >> n >> m;
-        vector<vector<pii > > adjList(n + 1);
-        for (ll i = 0; i < m; i++) {
+        init();
+        for (int i = 0; i < m; i++) {
             cin >> a >> b >> c;
-            adjList[a].push_back({b, c});
+            adj[a].push_back({b, c});
         }
-
-        vector<ll> dist(n + 1, INT64_MAX);
-        vector<bool> visited(n + 1, false);
         dist[1] = 0;
-        set<pii > st;
-        st.insert({0, 1});
-
-        while (!st.empty()) {
-            ll top = (*st.begin()).second;
-            st.erase(st.begin());
-            if (visited[top])
+        priority_queue<pi, vector<pi >, greater<> > pq;
+        pq.push({0, 1});
+        while (!pq.empty()) {
+            pi temp = pq.top();
+            pq.pop();
+            int u = temp.second;
+            if (vis[u])
                 continue;
-            visited[top] = true;
-            for (auto child: adjList[top]) {
-                ll v = child.first;
-                ll w = child.second;
-                if (dist[v] > dist[top] + w) {
-                    dist[v] = dist[top] + w;
-                    st.insert({dist[v], v});
+            vis[u] = true;
+            for (auto x: adj[u]) {
+                int v = x.first;
+                int w = x.second;
+                if (dist[v] > dist[u] + w) {
+                    dist[v] = dist[u] + w;
+                    pq.push({dist[v], v});
                 }
             }
         }
+        for (int i = 1; i <= n; i++)
+            cout << dist[i] << " ";
+    }
+    return EXIT_SUCCESS;
+}
+
+
+
+
+
+
+

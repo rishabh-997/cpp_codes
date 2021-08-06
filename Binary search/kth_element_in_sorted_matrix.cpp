@@ -36,3 +36,5 @@ int binary(vector<int> &arr, int x) {
         }
         return high;
     }
+
+
